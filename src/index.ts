@@ -1,5 +1,6 @@
 import './config/env';
-import Server from './server';
-import routes from './routes';
+import { ExpressServer } from './server';
 
-export default new Server().router(routes).start();
+const server = new ExpressServer();
+
+export default server.start();

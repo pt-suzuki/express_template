@@ -1,6 +1,8 @@
-import { Application } from 'express';
+import express from 'express';
 import examplesRouter from './controller/example/router';
 
-export default (app: Application): void => {
-  app.use('/api/v1/examples', examplesRouter);
-};
+const router = express.Router();
+
+router.use('/api/v1/examples', examplesRouter);
+
+export default router;

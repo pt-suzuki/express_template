@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build
-        run: cd express_template && docker build -t $IMAGE_NAME:$BUILD_TAG -f ./docker/Dockerfile .
+        run: pwd && ls && docker build -t $IMAGE_NAME:$BUILD_TAG -f ./docker/Dockerfile .
 
       - name: Tag
         run: docker image tag $IMAGE_NAME:$BUILD_TAG $REGISTRY_NAME/$IMAGE_NAME:$BUILD_TAG

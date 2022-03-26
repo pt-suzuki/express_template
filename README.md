@@ -31,8 +31,6 @@ npm run test
 
 ## Docker
 
-
-
 ### ビルド ＆ スタート
 
 ```shell

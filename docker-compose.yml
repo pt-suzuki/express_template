@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-express
+    volumes:
+      - .:/app
+    ports:
+      - 30000:30000
+    command: ["npm", "run", "dev"]
+    networks:
+      - express-network-1
+networks:
+  express-network-1:
+    external:
+      true

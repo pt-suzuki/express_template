@@ -1,0 +1,30 @@
+name: ci/docker Build and Push for Production
+
+on:
+  push:
+    branches:
+      - develop
+      - feature/*
+
+env:
+  # レジストリ名は適当に変更してください
+  REGISTRY_NAME: [REGISTORY_NAME]
+  IMAGE_NAME: expless-template
+  BUILD_TAG: dev
+
+jobs:
+  build_flow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Build
+        run: docker build -t $IMAGE_NAME:$BUILD_TAG -f docker/Dockerfile .
+
+      - name: Tag
+        run: docker image tag $IMAGE_NAME:$BUILD_TAG $REGISTRY_NAME/$IMAGE_NAME:$BUILD_TAG
+
+      #- name: Push
+      #  run: docker image push $REGISTRY_NAME/$IMAGE_NAME:$BUILD_TAG
+

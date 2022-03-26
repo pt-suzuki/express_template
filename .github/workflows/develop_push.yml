@@ -11,6 +11,25 @@ env:
   BUILD_TAG: dev
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "17.x"
+
+      - name: Nodemodules install
+        run: npm install
+
+      - name: Eslint
+        run: npm run lint
+
+      - name: Jest
+        run: npm run test
+
   build_flow:
     runs-on: ubuntu-latest
 

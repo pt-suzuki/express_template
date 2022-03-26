@@ -1,20 +1,68 @@
 # express_template
 
-express template
+expressのAPIアプリケーションのテンプレート
 
-## Quick Start
-
-Get started developing...
+## ローカル開発時のアプリ起動
 
 ```shell
-# install deps
+# node_moduleのinstall
 npm install
 
-# run in development mode
+# Hot Reloadモード スタート
 npm run dev
 
-# run tests
-npm run test
 ```
 
 ---
+
+## テスト
+
+```shell
+# eslint実行
+npm run lint
+
+# eslint実行 & 修正
+npm run lint:fix
+
+# jest実行
+npm run test
+
+```
+
+## Docker
+
+
+
+### ビルド ＆ スタート
+
+```shell
+
+#imageビルド
+docker build -f docker/Dockerfile -t express-template .
+
+#コンテナ起動
+docker run -p 30000:30000 express-template
+
+```
+
+### local起動
+
+```shell
+
+docker compose up
+
+```
+
+## GitHub Action
+
+テストの実行、dockerのビルド&リポジトリへのプッシュ、Slackへの通知を実行
+
+### シークレット
+
+#### DOCKER_REGISTRY_NAME
+
+Dcoker RepositoryのURLを指定
+
+#### SLACK_WEBHOOK_URL
+
+通知に使用するSlack WebhookのURLを指定

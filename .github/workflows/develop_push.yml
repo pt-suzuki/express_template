@@ -30,7 +30,9 @@ jobs:
 
   slack_notification:
     runs-on: ubuntu-latest
-    if: ${{ secrets.SLACK_WEBHOOK_URL != "" }}
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    if: env.SLACK_WEBHOOK_URL != ""
     needs: build_flow
 
     steps:

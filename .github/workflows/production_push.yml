@@ -7,7 +7,6 @@ on:
 
 env:
   # レジストリ名は適当に変更してください
-  REGISTRY_NAME: repository-name
   IMAGE_NAME: express-template
   BUILD_TAG: latest
 
@@ -23,15 +22,15 @@ jobs:
 
       - name: Tag
         env:
-          REGISTRY_NAME: ${{ secrets.REGISTRY_NAME }}
-        if: ${{ env.REGISTRY_NAME != ''}}
-        run: docker image tag $IMAGE_NAME:$BUILD_TAG ${{ secrets.REGISTRY_NAME }}/$IMAGE_NAME:$BUILD_TAG
+          DOCKER_REGISTRY_NAME: ${{ secrets.DOCKER_REGISTRY_NAME }}
+        if: ${{ env.DOCKER_REGISTRY_NAME != ''}}
+        run: docker image tag $IMAGE_NAME:$BUILD_TAG ${{ secrets.DOCKER_REGISTRY_NAME }}/$IMAGE_NAME:$BUILD_TAG
 
       - name: Push
         env:
-          REGISTRY_NAME: ${{ secrets.REGISTRY_NAME }}
-        if: ${{ env.REGISTRY_NAME != ''}}
-        run: docker image push ${{ secrets.REGISTRY_NAME }}/$IMAGE_NAME:$BUILD_TAG
+          DOCKER_REGISTRY_NAME: ${{ secrets.DOCKER_REGISTRY_NAME }}
+        if: ${{ env.DOCKER_REGISTRY_NAME != ''}}
+        run: docker image push ${{ secrets.DOCKER_REGISTRY_NAME }}/$IMAGE_NAME:$BUILD_TAG
 
   slack_notification:
     runs-on: ubuntu-latest

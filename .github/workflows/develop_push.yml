@@ -17,6 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Env Copy
+        run: cp .env.sample .env
+
       - name: Build
         run: docker build -t $IMAGE_NAME:$BUILD_TAG -f ./docker/Dockerfile .
 

@@ -54,6 +54,8 @@ docker compose up
 ## GitHub Action
 
 テストの実行、dockerのビルド&リポジトリへのプッシュ、Slackへの通知を実行
+シークレットを指定するとリポジトリへのプッシュ、Slackへの通知が動く
+.envのコピーは適当に変えてください
 
 ### シークレット
 

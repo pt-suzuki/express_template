@@ -6,7 +6,6 @@ on:
       - master
 
 env:
-  # レジストリ名は適当に変更してください
   IMAGE_NAME: express-template
   BUILD_TAG: latest
 

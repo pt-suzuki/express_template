@@ -7,7 +7,6 @@ on:
       - feature/*
 
 env:
-  # レジストリ名は適当に変更してください
   IMAGE_NAME: expless-template
   BUILD_TAG: dev
 

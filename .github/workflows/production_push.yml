@@ -35,14 +35,14 @@ jobs:
       - name: Notify slack - URLs
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: ${{ SLACK_WEBHOOK_URL != "" && !failure() }}
+        if: ${{ env.SLACK_WEBHOOK_URL != "" && !failure() }}
         run: |
           curl -X POST --data-urlencode "payload={\"text\": \"${{ github.repository }} Deploy to production\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
           curl -X POST --data-urlencode "payload={\"text\": \"デプロイ対象 : ${{ github.sha }}\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Notify slack when failed
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: ${{ SLACK_WEBHOOK_URL != "" && !failure() }}
+        if: ${{ env.SLACK_WEBHOOK_URL != "" && !failure() }}
         run: |
           curl -X POST --data-urlencode "payload={\"text\": \"${{ github.repository }}のデプロイに失敗しました\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
 

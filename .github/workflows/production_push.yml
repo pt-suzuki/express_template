@@ -42,10 +42,6 @@ jobs:
       - name: Notify slack when failed
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: ${{ env.SLACK_WEBHOOK_URL != '' && !failure() }}
+        if: ${{ env.SLACK_WEBHOOK_URL != '' && failure() }}
         run: |
           curl -X POST --data-urlencode "payload={\"text\": \"${{ github.repository }}のデプロイに失敗しました\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
-
-
-
-

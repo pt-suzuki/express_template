@@ -8,7 +8,7 @@ on:
 
 env:
   # レジストリ名は適当に変更してください
-  REGISTRY_NAME: REGISTORY_NAME
+  REGISTRY_NAME: repository-name
   IMAGE_NAME: expless-template
   BUILD_TAG: dev
 
@@ -17,14 +17,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
 
       - name: Build
-        run: docker build -t $IMAGE_NAME:$BUILD_TAG -f docker/Dockerfile .
+        run: docker build -t $IMAGE_NAME:$BUILD_TAG -f ./docker/Dockerfile .
 
       - name: Tag
         run: docker image tag $IMAGE_NAME:$BUILD_TAG $REGISTRY_NAME/$IMAGE_NAME:$BUILD_TAG
 
-      #- name: Push
+      # - name: Push
       #  run: docker image push $REGISTRY_NAME/$IMAGE_NAME:$BUILD_TAG
 
+  slack_notification:
+    runs-on: ubuntu-latest
+    if: ${{ secrets.SLACK_WEBHOOK_URL != "" }}
+    needs: build_flow
+
+    steps:
+      - name: Notify slack - URLs
+        if: ${{ ! failure() }}
+        run: |
+          curl -X POST --data-urlencode "payload={\"text\": \"${{ github.repository }} Deploy to develop\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
+          curl -X POST --data-urlencode "payload={\"text\": \"デプロイ対象 : ${{ github.sha }}\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Notify slack when failed
+        if: ${{ failure() }}
+        run: |
+          curl -X POST --data-urlencode "payload={\"text\": \"${{ github.repository }}のデプロイに失敗しました\"}" ${{ secrets.SLACK_WEBHOOK_URL }}

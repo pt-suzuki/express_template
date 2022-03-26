@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile-express
+      dockerfile: ./docker/Dockerfile
     volumes:
       - .:/app
     ports:

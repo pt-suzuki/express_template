@@ -29,19 +29,16 @@ jobs:
 
   slack_notification:
     runs-on: ubuntu-latest
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-    if: ${{ secrets.SLACK_WEBHOOK_URL != "" }}
     needs: build_flow
 
     steps:
       - name: Notify slack - URLs
-        if: ${{ !failure() }}
+        if: ${{ secrets.SLACK_WEBHOOK_URL != "" && !failure() }}
         run: |
           curl -X POST --data-urlencode "payload={\"text\": \"${{ github.repository }} Deploy to production\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
           curl -X POST --data-urlencode "payload={\"text\": \"デプロイ対象 : ${{ github.sha }}\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Notify slack when failed
-        if: ${{ failure() }}
+        if: ${{ secrets.SLACK_WEBHOOK_URL != "" && !failure() }}
         run: |
           curl -X POST --data-urlencode "payload={\"text\": \"${{ github.repository }}のデプロイに失敗しました\"}" ${{ secrets.SLACK_WEBHOOK_URL }}
 

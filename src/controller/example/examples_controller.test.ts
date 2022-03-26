@@ -1,8 +1,7 @@
 import request from 'supertest';
-import Server from '../../server';
-import routes from '../../routes';
+import { ExpressServer } from '../../server';
 
-const server = new Server().router(routes).getInstance();
+const server = new ExpressServer().getInstance();
 
 describe('Examples Controller', () => {
   describe('全検索', () => {

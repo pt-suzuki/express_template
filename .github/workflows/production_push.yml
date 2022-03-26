@@ -7,7 +7,7 @@ on:
 
 env:
   # レジストリ名は適当に変更してください
-  REGISTRY_NAME: [REGISTORY_NAME]
+  REGISTRY_NAME: REGISTORY_NAME
   IMAGE_NAME: expless-template
   BUILD_TAG: latest
 
